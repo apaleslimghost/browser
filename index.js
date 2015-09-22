@@ -1,11 +1,12 @@
 var http  = require('http');
 var route = require('boulevard');
 var fs    = require('fs');
+var log   = require('morgan')('dev');
 
 module.exports = function(file, opts) {
 	opts = opts || {};
 
-	http.createServer(route({
+	http.createServer((req, res) => log(req, res, () => route({
 		'/bundle.js': function(req, res) {
 			res.setHeader('content-type', 'application/javascript')
 			fs.createReadStream(file).pipe(res);
@@ -24,5 +25,5 @@ module.exports = function(file, opts) {
 				</body>
 			</html>`);
 		}
-	})).listen(opts.port || opts.p || 3000);
+	})(req, res))).listen(opts.port || opts.p || 3000);
 };
