@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "browser-open": "./bin.js"
+    "browser-run": "./bin.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   "dependencies": {
     "boulevard": "^2.3.1",
     "minimist": "^1.2.0",
-    "morgan": "^1.6.1"
+    "morgan": "^1.6.1",
+    "open": "0.0.5"
   }
 }

@@ -2,9 +2,11 @@ var http  = require('http');
 var route = require('boulevard');
 var fs    = require('fs');
 var log   = require('morgan')('dev');
+var open  = require('open');
 
 module.exports = function(file, opts) {
 	opts = opts || {};
+	var port = opts.port || opts.p || 3000;
 
 	http.createServer((req, res) => log(req, res, () => route({
 		'/bundle.js': function(req, res) {
@@ -25,5 +27,9 @@ module.exports = function(file, opts) {
 				</body>
 			</html>`);
 		}
-	})(req, res))).listen(opts.port || opts.p || 3000);
+	})(req, res))).listen(port, () => {
+		if(!opts.noOpen && !opts.n) {
+			open(`http://localhost:${port}`);
+		}
+	});
 };
